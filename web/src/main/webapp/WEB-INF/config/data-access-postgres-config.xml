@@ -36,7 +36,8 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>WEB-INF/boot/hibernate-postgres.properties</value>                                  
+                <!--<value>WEB-INF/boot/hibernate-postgres-local.properties</value>--> 
+                <value>WEB-INF/boot/hibernate-postgres-online.properties</value>                                  
             </list>
         </property>
     </bean>    
