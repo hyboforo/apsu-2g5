@@ -61,7 +61,7 @@
                 <prop key="password">${database.password}</prop> 
                 <prop key="serverName">${database.serverName}</prop> 
                 <prop key="portNumber">${database.port}</prop> 
-                <prop key="databaseName">${database.databaseName}</prop> 
+                <prop key="databaseName">${atabase.databaseName}</prop> 
             </props> 
         </property>           
         <property name="minPoolSize" value="${database.minPoolSize}"/>
