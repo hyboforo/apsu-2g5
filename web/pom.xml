@@ -97,6 +97,12 @@
             <version>1.5.6</version>
         </dependency>-->
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.6.4</version>
+            <!--<scope>runtime</scope>-->
+        </dependency>
+        <dependency>
             <artifactId>aopalliance</artifactId>
             <groupId>aopalliance</groupId>
             <version>1.0</version>
@@ -194,7 +200,7 @@
                             <outputDirectory>${endorsed.dir}</outputDirectory>
                             <silent>true</silent>
                             <artifactItems>
-<!--                                <artifactItem>
+                                <!--                                <artifactItem>
                                     <groupId>javax</groupId>
                                     <artifactId>javaee-endorsed-api</artifactId>
                                     <version>7.0</version>
