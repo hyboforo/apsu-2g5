@@ -55,7 +55,8 @@
 	
 	
     <!-- IF NOT USING ORACLE, USE THIS -->
-    <import resource="data-access-postgres-config.xml"/>
+    <!--<import resource="data-access-postgres-config.xml"/>-->
+    <import resource="data-access-postgres-config_online.xml"/>
     <import resource="service-config.xml"/>
     <import resource="thymleaf-config.xml"/>
     <!--<import resource="classpath:springmvc-resteasy-patch.xml" />-->

@@ -102,17 +102,17 @@
         </property>
     </bean>
     
-   <bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
-    	init-method="init" destroy-method="shutdownForce">
-            <constructor-arg>
-                <props>
-                    <prop key="com.atomikos.icatch.service">com.atomikos.icatch.standalone.UserTransactionServiceFactory</prop>
-                    <prop key="com.atomikos.icatch.max_timeout">3600000</prop>
-                    <prop key="com.atomikos.icatch.default_jta_timeout">3600000</prop>
-                    <prop key="com.atomikos.icatch.max_actives">250</prop>
-                </props>
-            </constructor-arg>
-        </bean>
+    <bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+          init-method="init" destroy-method="shutdownForce">
+        <constructor-arg>
+            <props>
+                <prop key="com.atomikos.icatch.service">com.atomikos.icatch.standalone.UserTransactionServiceFactory</prop>
+                <prop key="com.atomikos.icatch.max_timeout">3600000</prop>
+                <prop key="com.atomikos.icatch.default_jta_timeout">3600000</prop>
+                <prop key="com.atomikos.icatch.max_actives">250</prop>
+            </props>
+        </constructor-arg>
+    </bean>
 
     
     <bean id="atomikos" class="com.atomikos.icatch.jta.UserTransactionManager"  
@@ -130,7 +130,7 @@
         <property name="userTransaction" ref="atomikosUserTransaction" />
     </bean>
     <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" 
-     		p:transactionManager-ref="transactionManager"/>  
+          p:transactionManager-ref="transactionManager"/>  
     <bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
     <!--<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />-->
     <bean id="sessionFactoryLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" scope="prototype" />    <!--
@@ -141,13 +141,13 @@
         </tx:attributes>
     </tx:advice>-->
 
-<!--    <aop:config>
+    <!--    <aop:config>
         <aop:pointcut id="jmsOperation" expression="execution(* com.genkey.abis.orchestrator.jms.*.*(..))" />
         <aop:pointcut id="serviceOperation" expression="execution(* com.genkey.abis.orchestrator.service.*.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="jmsOperation" />
     </aop:config>-->
-<!--    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" p:transactionManager-ref="transactionManager"/>
+    <!--    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" p:transactionManager-ref="transactionManager"/>
     <bean id="requestDAO" class="com.genkey.abis.component.dao.transaction.RequestDAOImpl" p:persistentClassName="request" parent="dao" p:jdbcTemplate-ref="biographicJdbcTemplate" p:transactionTemplate-ref="jdbcDataSourceTransactionTemplate"/>
     <bean id="matchingRequestDAO" class="com.genkey.abis.component.dao.transaction.RequestDAOImpl" p:persistentClassName="request" parent="biometricDao" />
     <bean id="biographicJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
@@ -158,11 +158,12 @@
         <property name="dataSource" ref="jdbcDataSource" />
     </bean><!--
   
--->    <bean id="jdbcDataSourceTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+-->    
+    <bean id="jdbcDataSourceTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
         <property name="transactionManager" ref="jdbcDataSourceTransactionManager" />
         <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
     </bean>
-<!--    <bean id="biometricDataSourceTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+    <!--    <bean id="biometricDataSourceTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
         <property name="transactionManager" ref="transactionManager" />
         <property name="propagationBehaviorName" value="PROPAGATION_MANDATORY" />
     </bean>
