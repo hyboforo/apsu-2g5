@@ -9,8 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import javax.sql.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.jdbc.support.lob.LobHandler;
 import org.hibernate.Criteria;
@@ -32,7 +31,7 @@ public abstract class DefaultHibernateDAOImpl<E> implements BeanFactoryAware {
 
     private static final long serialVersionUID = 837056958164633603L;
 
-    private Logger logger = LoggerFactory.getLogger(DefaultHibernateDAOImpl.class);
+    private Logger logger = Logger.getLogger(DefaultHibernateDAOImpl.class);
     protected BeanFactory beanFactory;
     private Class<E> persistentClass;
     private String persistentClassName;

@@ -6,10 +6,10 @@
 package com.g5.service;
 
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.orm.hibernate3.HibernateJdbcException;
 
 /**
@@ -18,7 +18,7 @@ import org.springframework.orm.hibernate3.HibernateJdbcException;
  */
 public class CodeGeneratorDAO extends DefaultHibernateDAOImpl{
     
-     private static final Logger logger = LoggerFactory.getLogger(CodeGeneratorDAO.class);
+     private static final Logger logger = Logger.getLogger(CodeGeneratorDAO.class);
     
     
     public List<CodeGenerator> getAllCodes(){
