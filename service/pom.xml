@@ -101,11 +101,11 @@
             <version></version>
         </dependency>-->
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
-        <dependency>
+<!--        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.hibernate</groupId>
