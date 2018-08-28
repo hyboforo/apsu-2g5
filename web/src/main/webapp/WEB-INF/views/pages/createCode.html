@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>APSU2005</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+        <div align="center">
+            <form action="#" th:action="@{/createCodeAction}" th:object="${codeGenerator}" method="post">
+                <table align="center">
+                    <tr>
+                        <td>Enter First Name:</td>
+                        <td><input type="text" id="firstName" name="firstName" /></td>
+                        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Title error message</td>
+                    </tr>
+                    <tr>
+                        <td>Enter Phone Number:</td>
+                        <td><input type="text" id="phoneNumber" name="phoneNumber" /></td>
+                        <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Title error message</td>
+                    </tr>
+                    <tr>
+                        <td>Enter Email:</td>
+                        <td><input type="text" id="email" name="email" /></td>
+                        <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Title error message</td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit">Submit post</button></td>
+                    </tr>
+                </table>           
+            </form>
+        </div>
+    </body>
+</html>

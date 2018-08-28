@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+                text-align: left;    
+            }
+        </style>
+        <title>APSU2005</title>
+    </head>
+    <body>
+        <div align="center" id="search">
+            <form action="#" th:action="@{/searchAction}" th:object="${members}" method="post">
+                <table align="center" style="width:90%">
+                    <tr>
+                        <td>Choose Search Criteria</td>
+                        <td><select name="criteria">
+                                <option value="City">city</option>
+                                <option value="Region">Region</option>
+                                <option value="Country">Country</option>
+                                <option value="Phone">Phone</option>
+                                <option value="Course">Course</option>
+                                <option value="Class">Class</option>
+                                <option value="House">House</option>
+                                <option value="First Name">First Name</option>
+                                <option value="Last Name">Last Name</option>
+                            </select></td>
+                        <td>Choose House</td>
+                        <td><select name="param">
+                                <option value=" "> </option>
+                                <option value="St. Luke's">St. Luke's</option>
+                                <option value="St. George's">St. George's</option>
+                                <option value="St. John's">St. John's</option>
+                                <option value="St. Stephen's">St. Stephen's</option>
+                                <option value="St. Patrick's">St. Patrick's</option>
+                                <option value="St. Joseph's">St. Joseph's</option>
+                                <option value="St. Theresa's">St. Theresa's</option>
+                                <option value="Fr. Glynn">Fr. Glynn</option>
+                                <option value="Fr.Kelly">Fr.Kelly</option>
+                                <option value="St. Peter's">St. Peter's</option>
+                                <option value="Arts 1">Arts 1</option>
+                                <option value="Arts 2">Arts 2</option>
+                                <option value="Arts 3">Arts 3</option>
+                                <option value="Business 1">Business 1</option>
+                                <option value="Business 2">Business 2</option>
+                                <option value="Business 3">Business 3</option>
+                                <option value="Science 1">Science 1</option>
+                                <option value="Science 2">Science 2</option>
+                                <option value="Science 3">Science 3</option>
+                                <option value="Science 4">Science 4</option>
+                                <option value="Science 5">Science 5</option>
+                                <option value="General Arts">General Arts</option>
+                                <option value="Business">Business</option>
+                                <option value="Science">Science</option>
+                            </select></td>
+                        <td>Enter</td>
+                        <td><input type="text" id="param2" name="param2" /></td>
+                        <td><button type="submit">Search</button></td>
+
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+        <div class="members" align="center" th:unless="${#lists.isEmpty(members)}">
+            <table align="center" style="width:90%">
+                <tr>
+                    <th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Phone</th><th>Email</th><th>Occupation</th><th>Course</th><th>Class</th><th>House</th><th>Country of Residence</th><th>Show More</th>
+                </tr>
+                <tr th:each="sb : ${members}">
+                    <td th:text="${sb.firstName}"></td><td th:text="${sb.middleName}"></td><td th:text="${sb.lastName}"></td><td th:text="${sb.primaryNumber}"></td><td th:text="${sb.email}"></td><td th:text="${sb.occupation}"></td><td th:text="${sb.program}"></td ><td th:text="${sb.courseClass}"></td><td th:text="${sb.house}"></td><td th:text="${sb.country}"></td><td><a th:href="@{/displayAction(id=${sb.id})}">Show More</a></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+
+</html>

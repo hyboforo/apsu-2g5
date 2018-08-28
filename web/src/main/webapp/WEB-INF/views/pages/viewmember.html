@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>APSU2005</title>
+    </head>
+    <body>
+        <div class="members" align="center" th:unless="${#lists.isEmpty(members)}">
+            <table align="center">
+
+                <tr>
+                    <td>First Name</td>
+                    <td th:text="${members.firstName}"></td>                    
+                </tr>
+                <tr>
+                    <td>Middle Name</td>
+                    <td th:text="${members.middleName}"></td>                    
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td th:text="${members.lastName}"></td>                    
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td th:text="${members.dob}"></td>                    
+                </tr>
+                <tr>
+                    <td>Primary Phone</td>
+                    <td th:text="${members.primaryNumber}"></td>                    
+                </tr>
+                <tr>
+                    <td>Secondary Phone</td>
+                    <td th:text="${members.SecondaryNumber}"></td>                    
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td th:text="${members.email}"></td>                    
+                </tr>
+                <tr>
+                    <td>Occupation</td>
+                    <td th:text="${members.occupation}"></td>                    
+                </tr>
+                <tr>
+                    <td>Identification Type</td>
+                    <td th:text="${members.identification}"></td>                    
+                </tr>
+                <tr>
+                    <td>Identification Number</td>
+                    <td th:text="${members.identificationNumber}"></td>                    
+                </tr>
+                <tr>
+                    <td>Residential Address</td>
+                    <td th:text="${members.residentialAddress}"></td>                    
+                </tr>
+                <tr>
+                    <td>Postal Address</td>
+                    <td th:text="${members.postalAddress}"></td>                    
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td th:text="${members.city}"></td>                    
+                </tr>
+                <tr>
+                    <td>Region/State</td>
+                    <td th:text="${members.region}"></td>                    
+                </tr>
+                <tr>
+                    <td>Country of Residence</td>
+                    <td th:text="${members.country}"></td>                    
+                </tr>
+                <tr>
+                    <td>Nationality</td>
+                    <td th:text="${members.nationality}"></td>                    
+                </tr>
+                <tr>
+                    <td>Course</td>
+                    <td th:text="${members.program}"></td>                    
+                </tr>
+                <tr>
+                    <td>Class</td>
+                    <td th:text="${members.courseClass}"></td>                    
+                </tr>
+                <tr>
+                    <td>House</td>
+                    <td th:text="${members.house}"></td>                    
+                </tr>
+                
+            </table>
+        </div>
+    </body>
+
+</html>

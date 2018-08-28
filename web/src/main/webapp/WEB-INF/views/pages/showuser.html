@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="adminlayout::site-head">
+        <title> </title>
+    </head>
+    <body>
+        <!-- INCLUDE LAYOUT HEADER HERE -->
+        <header th:replace="layout::site-header"></header>
+
+        <!-- PAGE SPECIFIC CONTENT GOES HERE -->
+        <div class="container">
+            <div>
+                <h4 class="text-center">USER PROFILE</h4>
+            </div>
+            <div class="table-responsive">
+                <table class=" table table-hover table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>First name</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                        <tr>
+                            <td>Last name</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                        <tr>
+                            <td>Station</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                        <tr>
+                            <td>District/Metropolis</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                        <tr>
+                            <td>Region</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary"> EDIT USER</button>
+            </div>
+        </div>
+        <!-- INCLUDE ADMIN FOOTER LAYOUT-->
+        <footer th:replace="adminlayout::site-footer"></footer>
+    </body>
+</html>

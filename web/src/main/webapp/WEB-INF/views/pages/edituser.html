@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="adminlayout::site-head">
+        <title> </title>
+    </head>
+    <body>
+        <!-- INCLUDE LAYOUT HEADER HERE -->
+        <header th:replace="layout::site-header"></header>
+
+        <!-- PAGE SPECIFIC CONTENT GOES HERE -->
+        <div class="container">
+            <div>
+                <h4 class="text-center">EDIT USER</h4>
+            </div>
+            <div>
+                
+                <!--EDIT USER FROM START HERE-->
+                <form>
+                    <div class="form-group">
+                        <label class="control-label" for="firstName">FIRST NAME</label>
+                        <div>
+                            <input type="text" name="firstName" placeholder="First name" class="form-control" id="firstName" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="lastName">LAST NAME</label>
+                        <div>
+                            <input type="text" name="lastName" placeholder="Last name" class="form-control" id="lastName" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="username">USERNAME</label>
+                        <div>
+                            <input type="text" name="username" placeholder="Username" class="form-control" id="username" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="phone">PHONE</label>
+                        <div>
+                            <input type="tel" name="phone" placeholder="Phone" class="form-control" id="phone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="Station">STATION</label>
+                        <select name="station" class="form-control">
+                            <option value="">Select station</option>
+                            <option value="volvo">XXXX</option>
+                            <option value="saab">XXXX</option>
+                            <option value="fiat">XXXX</option>
+                            <option value="audi">XXXX</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="user-state">USER STATE</label>
+                        <div class="radio">
+                            <label><input type="radio" name="user-state"/>ACTIVE</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="optradio"/>INACTIVE</label>
+                        </div>
+                    </div>
+                </form>
+                
+                <!--END OF EDIT USER FORM-->
+            </div>
+        </div>
+        <!-- INCLUDE ADMIN FOOTER LAYOUT-->
+        <footer th:replace="adminlayout::site-footer"></footer>
+    </body>
+</html>

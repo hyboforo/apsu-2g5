@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+                text-align: left;    
+            }
+        </style>
+        <title>APSU2005</title>
+    </head>
+    <body>
+        <div align="center" id="search">
+            <form action="#" th:action="@{/codeSearch}" th:object="${codes}" method="post">
+                <table>
+                <tr>
+                    <td>Enter Phone Number</td>
+                    <td><input type="text" id="phone" name="phone" /></td>
+                    <td><button type="submit">Search</button></td>
+
+                </tr>
+                </table>
+            </form>
+
+        </div>
+        <div class="codes" align="center" th:unless="${#lists.isEmpty(codes)}">
+            <table align="center" style="width:90%">
+                <tr >
+                    <th align="center">Name</th><th align="center">Phone</th><th align="center">Email</th><th align="center">Token</th><th align="center">Date Generated</th><th align="center">Status</th>
+                </tr>
+                <tr th:each="sb : ${codes}">
+                    <td  th:text="${sb.firstName}"></td><td  th:text="${sb.phoneNumber}"></td><td th:text="${sb.email}"></td><td th:text="${sb.token}"></td><td th:text="${sb.date}"></td><td th:text="${sb.status}"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+
+</html>

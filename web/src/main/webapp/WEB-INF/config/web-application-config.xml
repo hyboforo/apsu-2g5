@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+- Copyright (c) 2008 GENKEY CORPORATION All Rights Reserved.
+-
+- This software is the confidential and proprietary information of GenKey.
+- You shall not disclose such Confidential Information and shall use
+- it only in accordance with the terms of the license agreement you
+- entered into with GenKey Corporation.
+-
+- GENKEY MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
+- SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT
+- NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+- A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. GENKEY CORPORATION OR ANY
+- OF ITS SUBSIDARIES WORLD-WIDE SHALL NOT BE LIABLE FOR ANY DAMAGES
+- SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING
+- THIS SOFTWARE OR ITS DERIVATIVES.
+-->
+<!--
+ - Author: Edem Morny
+ - Author: Diabene Agyire
+ - Author: Wesley Kirinya
+ - Author: Henry Sampson
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+    <!-- Activates annotation-based bean configuration -->
+    <context:annotation-config />
+    
+<!--    <aop:config proxy-target-class="true"/>
+    <util:properties id="domainProperties" location="/WEB-INF/boot/domain.properties"/>
+    <util:properties id="matchEngineClusterProperties" location="/WEB-INF/boot/matchengine-cluster.properties"/>
+    <util:properties id="controllerClusterProperties" location="/WEB-INF/boot/controller-cluster.properties"/>
+   <util:properties id="singleClusterProperties" location="/WEB-INF/boot/single-cluster.properties"/>-->
+
+    <!-- IF USING ORACLE, USE THIS 
+    <import resource="data-access-oracle-config.xml" />
+	-->
+	
+    <!-- IF USING ORACLE - single DB, USE THIS -->
+    <!--<import resource="data-access-oracle-singleDB.xml" />-->
+	
+	
+    <!-- IF NOT USING ORACLE, USE THIS -->
+    <import resource="data-access-postgres-config.xml"/>
+    <import resource="service-config.xml"/>
+    <import resource="thymleaf-config.xml"/>
+    <!--<import resource="classpath:springmvc-resteasy-patch.xml" />-->
+    <context:component-scan base-package="com.g5.*" />
+    
+    
+    
+</beans>

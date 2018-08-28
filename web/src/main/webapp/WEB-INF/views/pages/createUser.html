@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>APSU2005</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+        <div align="center">
+            <form action="#" th:action="@{/createUserAction}" th:object="${members}" method="post">
+                <table align="center">
+                    <tr>
+                        <td>Enter First Name:</td>
+                        <td><input type="text" id="firstName" name="firstName" /></td>
+                    </tr>
+                    <tr>
+                        <td>Enter Last Name:</td>
+                        <td><input type="text" id="lastName" name="lastName" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter Middle Name</td>
+                        <td><input type="text" id="middleName" name="middleName" /></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>Date Of Birth</td>
+                        <td><input type="date" id="dob" name="dob" th:value="${#dates.createNow()}" /></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>Enter Phone Number</td>
+                        <td><input type="text" id="primaryNumber" name="primaryNumber" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter Alternate Phone Number</td>
+                        <td><input type="text" id="SecondaryNumber" name="SecondaryNumber" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter Email</td>
+                        <td><input type="text" id="email" name="email" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Choose ID Type</td>
+                        <td><div><input type="radio" name="identification" value="Passport" checked="checked" />Passport</div></td>
+                        <td><div><input type="radio" name="identification" value="National ID" />National ID</div></td>
+                        <td><div><input type="radio" name="identification" value="Driving License" />Driving License</div></td>
+                    </tr>
+                    <tr>
+                        <td>Enter ID Number</td>
+                        <td><input type="text" id="identificationNumber" name="identificationNumber" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter Nationality</td>
+                        <td><input type="text" id="nationality" name="nationality" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter Occupation</td>
+                        <td><input type="text" id="occupation" name="occupation" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter Residential Address</td>
+                        <td><textarea id="residentialAddress" name="residentialAddress" rows="4" cols="50" ></textarea></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter Postal Address</td>
+                        <td><textarea id="postalAddress" name="postalAddress" rows="4" cols="50" ></textarea></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Enter City/Town/Province</td>
+                        <td><input type="text" id="city" name="city" /></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>Enter Region/State</td>
+                        <td><input type="text" id="region" name="region" /></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>Enter Country</td>
+                        <td><input type="text" id="country" name="country" /></td>
+                       
+                    </tr>
+                    <tr>
+                        <td>Enter House</td>
+                        <td><select name="house">
+                                <option value="St. Luke's">St. Luke's</option>
+                                <option value="St. George's">St. George's</option>
+                                <option value="St. John's">St. John's</option>
+                                <option value="St. Stephen's">St. Stephen's</option>
+                                <option value="St. Patrick's">St. Patrick's</option>
+                                <option value="St. Joseph's">St. Joseph's</option>
+                                <option value="St. Theresa's">St. Theresa's</option>
+                                <option value="Fr. Glynn">Fr. Glynn</option>
+                                <option value="Fr.Kelly">Fr.Kelly</option>
+                                <option value="St. Peter's">St. Peter's</option>
+                            </select></td>
+
+                    </tr>
+                    <tr>
+                        <td>Enter Class</td>
+                        <td><select name="courseClass">
+                                <option value="Arts 1">Arts 1</option>
+                                <option value="Arts 2">Arts 2</option>
+                                <option value="Arts 3">Arts 3</option>
+                                <option value="Business 1">Business 1</option>
+                                <option value="Business 2">Business 2</option>
+                                <option value="Business 3">Business 3</option>
+                                <option value="Science 1">Science 1</option>
+                                <option value="Science 2">Science 2</option>
+                                <option value="Science 3">Science 3</option>
+                                <option value="Science 4">Science 4</option>
+                                <option value="Science 5">Science 5</option>
+                            </select></td>
+
+                    </tr>
+                    <tr>
+                        <td>Enter Program</td>
+                        <td> <select name="program">
+                                <option value="General Arts">General Arts</option>
+                                <option value="Business">Business</option>
+                                <option value="Science">Science</option>
+                            </select></td>
+
+                    </tr>
+                    <tr>
+                        <td><button type="submit">Submit</button></td>
+                    </tr>
+                </table>           
+            </form>
+        </div>
+    </body>
+</html>

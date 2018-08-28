@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+- Copyright (c) 2008 GENKEY CORPORATION All Rights Reserved.
+-
+- This software is the confidential and proprietary information of GenKey.
+- You shall not disclose such Confidential Information and shall use
+- it only in accordance with the terms of the license agreement you
+- entered into with GenKey Corporation.
+-
+- GENKEY MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
+- SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT
+- NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+- A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. GENKEY CORPORATION OR ANY
+- OF ITS SUBSIDARIES WORLD-WIDE SHALL NOT BE LIABLE FOR ANY DAMAGES
+- SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING
+- THIS SOFTWARE OR ITS DERIVATIVES.
+-->
+<!--
+ - Author: Hanan Yaro
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>WEB-INF/boot/hibernate-postgres.properties</value>                                  
+            </list>
+        </property>
+    </bean>    
+    <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <property name="url" value="${database.url}" />
+        <property name="driverClassName" value="${standard.database.driverClassName}" />
+        <property name="username" value="${database.user}" />
+        <property name="password" value="${database.password}" />
+    </bean>             
+    
+    <bean id="dataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean" 
+          init-method="init" destroy-method="close">        
+        <property name="uniqueResourceName">
+            <value>APSU-DBMS</value>
+        </property>       
+        <property name="xaDataSourceClassName"> 
+            <value>${database.driverClassName}</value> 
+        </property> 
+        <property name="xaProperties">           
+            <props> 
+                <prop key="user">${database.user}</prop> 
+                <prop key="password">${database.password}</prop> 
+                <prop key="serverName">${database.serverName}</prop> 
+                <prop key="portNumber">${database.port}</prop> 
+                <prop key="databaseName">${database.databaseName}</prop> 
+            </props> 
+        </property>           
+        <property name="minPoolSize" value="${database.minPoolSize}"/>
+        <property name="maxPoolSize" value="${database.maxPoolSize}"/>
+        <property name="testQuery" value="Select 1"/>
+    </bean>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"  p:dataSource-ref="dataSource"
+          p:useTransactionAwareDataSource="true" p:lobHandler-ref="sessionFactoryLobHandler">
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    ${hibernate.dialect}
+                </prop>
+                <prop key="hibernate.show_sql">
+                    ${hibernate.show_sql}
+                </prop>
+                <prop key="hibernate.hbm2ddl.auto">
+                    ${hibernate.hbm2ddl.auto}
+                </prop>
+                <prop key="hibernate.transaction.factory_class"> 
+                    com.atomikos.icatch.jta.hibernate3.AtomikosJTATransactionFactory 
+                </prop> 
+                <prop key="hibernate.transaction.manager_lookup_class"> 
+                    com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup 
+                </prop>                                
+                <prop key="hibernate.cache.use_second_level_cache">
+                    false
+                </prop>                                                       
+            </props>
+        </property>
+        <property name="mappingResources">
+            <list>  
+                <value>com/g5/service/Member.hbm.xml</value>
+                <value>com/g5/service/Generator.hbm.xml</value>                  
+            </list>
+        </property>
+    </bean>
+    
+   <bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+    	init-method="init" destroy-method="shutdownForce">
+            <constructor-arg>
+                <props>
+                    <prop key="com.atomikos.icatch.service">com.atomikos.icatch.standalone.UserTransactionServiceFactory</prop>
+                    <prop key="com.atomikos.icatch.max_timeout">3600000</prop>
+                    <prop key="com.atomikos.icatch.default_jta_timeout">3600000</prop>
+                    <prop key="com.atomikos.icatch.max_actives">250</prop>
+                </props>
+            </constructor-arg>
+        </bean>
+
+    
+    <bean id="atomikos" class="com.atomikos.icatch.jta.UserTransactionManager"  
+          init-method="init" 
+          destroy-method="close" >
+        <property name="forceShutdown" value="false" />
+    </bean>
+
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+        <property name="transactionTimeout" value="30000" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="transactionManager" ref="atomikos" />
+        <property name="userTransaction" ref="atomikosUserTransaction" />
+    </bean>
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" 
+     		p:transactionManager-ref="transactionManager"/>  
+    <bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+    <!--<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />-->
+    <bean id="sessionFactoryLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" scope="prototype" />    <!--
+    <aop:aspectj-autoproxy />
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>-->
+
+<!--    <aop:config>
+        <aop:pointcut id="jmsOperation" expression="execution(* com.genkey.abis.orchestrator.jms.*.*(..))" />
+        <aop:pointcut id="serviceOperation" expression="execution(* com.genkey.abis.orchestrator.service.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="jmsOperation" />
+    </aop:config>-->
+<!--    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" p:transactionManager-ref="transactionManager"/>
+    <bean id="requestDAO" class="com.genkey.abis.component.dao.transaction.RequestDAOImpl" p:persistentClassName="request" parent="dao" p:jdbcTemplate-ref="biographicJdbcTemplate" p:transactionTemplate-ref="jdbcDataSourceTransactionTemplate"/>
+    <bean id="matchingRequestDAO" class="com.genkey.abis.component.dao.transaction.RequestDAOImpl" p:persistentClassName="request" parent="biometricDao" />
+    <bean id="biographicJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg index="0" ref="jdbcDataSource"/>
+    </bean> -->
+    
+    <bean id="jdbcDataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="jdbcDataSource" />
+    </bean><!--
+  
+-->    <bean id="jdbcDataSourceTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="jdbcDataSourceTransactionManager" />
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
+    </bean>
+<!--    <bean id="biometricDataSourceTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="propagationBehaviorName" value="PROPAGATION_MANDATORY" />
+    </bean>
+    <alias name="biometricDataSourceTransactionTemplate" alias="biographicDataSourceTransactionTemplate"/>
+   <bean id="sequenceGenerator" class="com.genkey.abis.component.dao.util.PostgresSequenceGenerator" init-method="init">
+        <constructor-arg index="0" value="${orchestrator.subjectIdSequence}"/>
+        <constructor-arg index="1" ref="parentJdbcTemplate"/>
+        <constructor-arg index="2" ref="incrementer"/>
+    </bean>   
+    <bean id="incrementer" class="org.springframework.jdbc.support.incrementer.PostgreSQLSequenceMaxValueIncrementer">
+        <property name="dataSource" ref="jdbcDataSource" />
+        <property name="incrementerName" value="${orchestrator.subjectIdSequence}" />
+    </bean>-->
+</beans>
