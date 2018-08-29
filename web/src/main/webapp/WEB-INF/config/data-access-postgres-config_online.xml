@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
  
-   <bean id="propertyConfigurer"
+    <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -20,13 +20,20 @@
                 <value>WEB-INF/boot/hibernate-postgres-online.properties</value>                                  
             </list>
         </property>
-    </bean>    
+    </bean> 
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.user}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="driverClassName" value="${standard.database.driverClassName}"/>
+    </bean>   
  
-   <bean id="sessionFactory"
-    class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-      <property name="dataSource" ref="dataSource" />
-      <property name="packagesToScan" value="org.baeldung.spring.persistence.model" />
-      <property name="hibernateProperties">
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="com.g5.service" />
+        <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">
                     ${hibernate.dialect}
@@ -54,22 +61,15 @@
                 <value>com/g5/service/Generator.hbm.xml</value>                  
             </list>
         </property>
-   </bean>
- 
-   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-      <property name="url" value="${database.url}"/>
-    <property name="username" value="${database.user}"/>
-    <property name="password" value="${database.password}"/>
-   </bean>
- 
-   <bean id="txManager"
-    class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-      <property name="sessionFactory" ref="sessionFactory" />
-   </bean>
-   <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" 
+    </bean>
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" 
           p:transactionManager-ref="txManager"/>  
  
-   <bean id="persistenceExceptionTranslationPostProcessor"
-    class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <bean id="persistenceExceptionTranslationPostProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
  
 </beans>
